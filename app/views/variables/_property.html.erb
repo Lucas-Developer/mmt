@@ -1,0 +1,9 @@
+<p>
+  <%= label_tag(property_name.underscore, property_name.titleize, class: ('eui-required-o' if required_fields.include?(property_name))) %><br />
+  <% if property.key?('enum') %>
+    <%= select_tag(property_name.underscore, options_for_select(property['enum'])) %>
+  <% else %>
+    <%= text_field_tag(property_name.underscore, nil, class: 'full-width') %>
+  <% end %>
+</p>
+<p class="form-description"><%= property['description'] %></p>

@@ -1,7 +1,28 @@
-<%#= @schema %>
+<div class="row row-content">
+  <section>
+    <h1>Super Simple JSON Schema Form Interpretation</h1>
 
-<% @schema['properties'].each do |property| %>
-  <p>
-    <%= property %>
-  </p>
-<% end %>
+    <fieldset>
+      <h2><%= @schema['title'] %></h2>
+      <p><%= @schema['description'] %></p>
+
+      <% @schema.fetch('properties', []).each do |property_name, property| %>
+        <%= render partial: 'property', locals: { property_name: property_name, property: property, required_fields: @schema.fetch('required', []) } %>
+      <% end %>
+
+    </fieldset>
+
+    <% @schema['definitions'].each do |definition_name, definition| %>
+      <fieldset>
+        <h2><%= definition_name.titleize %></h2>
+        <p><%= definition['description'] %></p>
+
+        <% definition.fetch('properties', []).each do |property_name, property| %>
+          <%= render partial: 'property', locals: { property_name: property_name, property: property, required_fields: definition.fetch('required', []) } %>
+        <% end %>
+
+      </fieldset>
+    <% end %>
+
+  </section>
+</div>
