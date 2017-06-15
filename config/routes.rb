@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/variables' => 'variables#index'
+
   resources :provider_holdings, only: [:index, :show]
 
   # PUMPness
