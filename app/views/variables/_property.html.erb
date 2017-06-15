@@ -3,7 +3,7 @@
   <% if property.key?('enum') %>
     <%= select_tag(property_name.underscore, options_for_select(property['enum'])) %>
   <% else %>
-    <%= text_field_tag(property_name.underscore, nil, class: 'full-width') %>
+    <%= text_field_tag(property_name.underscore, nil, {class: 'full-width', required: required_fields.include?(property_name)}.merge(property.select { |key| %w(minLength maxLength).include?(key)}) ) %>
   <% end %>
 </p>
 <p class="form-description"><%= property['description'] %></p>

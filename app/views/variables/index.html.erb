@@ -2,6 +2,7 @@
   <section>
     <h1>Super Simple JSON Schema Form Interpretation</h1>
 
+    <%= form_tag 'variable', method: :post, id: 'umm-var-form' do %>
     <fieldset>
       <h2><%= @schema['title'] %></h2>
       <p><%= @schema['description'] %></p>
@@ -11,6 +12,8 @@
       <% end %>
 
     </fieldset>
+
+    <%= submit_tag 'Submit', class: 'eui-btn--blue' %>
 
     <% @schema['definitions'].each do |definition_name, definition| %>
       <fieldset>
@@ -23,6 +26,14 @@
 
       </fieldset>
     <% end %>
+    <% end %>
 
   </section>
 </div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#umm-var-form").validate()
+  })
+</script>
