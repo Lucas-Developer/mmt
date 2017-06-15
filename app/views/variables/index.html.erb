@@ -1,1 +1,7 @@
-<%= @schema %>
+<%#= @schema %>
+
+<% @schema['properties'].each do |property| %>
+  <p>
+    <%= property %>
+  </p>
+<% end %>
