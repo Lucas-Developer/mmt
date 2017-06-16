@@ -1,11 +1,10 @@
-<p>
+<div>
   <%= label_tag(property_name.underscore, property_name.titleize, class: ('eui-required-o' if required_fields.include?(property_name))) %>
   <%= mmt_help_icon({ help: "properties/#{property_name}", title: 'property_name' }) %>
 
-  <p class="form-description"><%= property['description'] %></p>
   <% if property.key?('enum') %>
     <%= select_tag(property_name.underscore, options_for_select(property['enum'])) %>
   <% else %>
-    <%= text_field_tag(property_name.underscore, nil, { class: property_classes(property) }.merge(validation_properties(property_name, property, required_fields: required_fields)) ) %>
+    <%= text_field_tag(property_name.underscore, nil, { class: element_classes(property) }.merge(validation_properties(property_name, property, required_fields: required_fields)) ) %>
   <% end %>
-</p>
+</div>

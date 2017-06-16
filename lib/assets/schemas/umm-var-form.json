@@ -1,0 +1,85 @@
+{
+  "forms": [
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-5",
+          "items": [{"key": "Name"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-7",
+          "items": [{"key": "LongName"}]
+        }
+      ],
+      "title": "Naming Details",
+      "description": "Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo."
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-6",
+          "items": [{"key": "DataType"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-6",
+          "items": [{"key": "Units"}]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-8",
+          "items": [{"key": "DimensionsName"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-4",
+          "items": [{"key": "Dimensions"}]
+        }
+      ],
+      "title": "Dimension Information",
+      "description": "Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-4",
+          "items": [{"key": "ValidRange"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-4",
+          "items": [{"key": "Scale"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-4",
+          "items": [{"key": "Offset"}]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {"key": "FillValue"},
+        {"type": "textarea", "key": "FillValueDescription"}
+      ]
+    }
+  ]
+}

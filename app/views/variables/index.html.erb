@@ -1,23 +1,25 @@
-
 <script type="text/javascript">
-    // Load json-schema for field validation
-    var globalJsonSchema = <%= raw @schema.to_json %>;
+  // Load json-schema for field validation
+  var globalJsonSchema = <%= raw @schema.to_json %>;
+
+  $(document).ready(function() {
+    $("#umm-var-form").validate()
+  })
 </script>
 
 <div class="row row-content">
   <section>
     <h1>Super Simple JSON Schema Form Interpretation</h1>
 
-    <%= form_tag 'variable', method: :post, id: 'umm-var-form' do %>
-      <fieldset>
-        <h2><%= @schema['title'] %></h2>
-        <p><%= @schema['description'] %></p>
+    <%= form_tag 'variable', method: :post, id: 'umm-var-form', class: 'umm-form' do %>
+      <h2><%= @schema['title'] %></h2>
+      <p><%= @schema['description'] %></p>
 
-        <% @schema.fetch('properties', []).each do |property_name, property| %>
-          <%= render partial: 'property', locals: { property_name: property_name, property: property, required_fields: @schema.fetch('required', []) } %>
-        <% end %>
-
-      </fieldset>
+      <% @form['forms'].each do |form_section| %>
+        <fieldset>
+          <%= render_form_element(form_section, @schema, @object) %>
+        </fieldset>
+      <% end %>
 
       <%= submit_tag 'Submit', class: 'eui-btn--blue' %>
     <% end %>
@@ -25,15 +27,7 @@
   </section>
 </div>
 
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#umm-var-form").validate()
-  })
-</script>
-
-
-<!-- help modal -->
+<!-- Help Modal -->
 <div id="help-modal">
   <a href="javascript:void(0);" class="modal-close float-r"><i class="fa fa-times"></i><span class="is-invisible">Close</span></a>
   <div>
