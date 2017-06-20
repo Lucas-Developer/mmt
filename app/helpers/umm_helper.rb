@@ -13,7 +13,7 @@ module UmmHelper
   def validation_properties(element, schema)
     # jQuery Validate can use html elements for validation so we'll set those elements
     # here instead of having to define these attributes on a one off basis in javascript
-    validation_properties = element.select { |key| %w(minLength maxLength).include?(key) }
+    validation_properties = element.select { |key| %w(minLength maxLength pattern).include?(key) }
 
     # JSON Schema provides the required fields in a separate array so we have to look this up
     if schema_required_fields(schema).include?(element['key'])
