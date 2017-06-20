@@ -2,6 +2,21 @@
   "forms": [
     {
       "type": "section",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-6",
+          "items": [{"key": "ServiceType/Visualizable"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-6",
+          "items": [{"key": "ServiceType/Subsettable"}]
+        }
+      ]
+    },
+    {
+      "type": "section",
       "htmlClass": "row",
       "items": [
         {
@@ -25,7 +40,7 @@
         {
           "type": "section",
           "htmlClass": "col-6",
-          "items": [{"key": "DataType"}]
+          "items": [{"key": "DataType", "type": "array"}]
         },
         {
           "type": "section",

@@ -16,7 +16,14 @@ module UmmHelper
     validation_properties = element.select { |key| %w(minLength maxLength).include?(key) }
 
     # JSON Schema provides the required fields in a separate array so we have to look this up
-    validation_properties['required'] = schema_required_fields(schema).include?(element['key'])
+    if schema_required_fields(schema).include?(element['key'])
+      validation_properties['required'] = true
+
+      # jQuery validation supports custom messages via data attributes
+      validation_properties['data'] = {
+        'msg-required': "#{element['key'].titleize} is required."
+      }
+    end
 
     validation_properties
   end
@@ -39,7 +46,7 @@ module UmmHelper
       concat render_label(element, schema)
 
       # Help Icon and Modal
-      concat mmt_help_icon({ help: "properties/#{element['key']}", title: 'element' })
+      concat mmt_help_icon({ help: "properties/#{element['key']}", title: element['key'] })
 
       # Render the field
       concat send("render_#{type}", element, schema, object)
@@ -62,19 +69,19 @@ module UmmHelper
   end
 
   def render_textarea(element, schema, object)
-    text_area_tag(element['key'], object[element['key']], element_properties(element, schema))
+    text_area_tag(keyify_property_name(element), object[element['key']], element_properties(element, schema))
   end
 
   def render_text(element, schema, object)
-    text_field_tag(element['key'], object[element['key']], element_properties(element, schema))
+    text_field_tag(keyify_property_name(element), object[element['key']], element_properties(element, schema))
   end
 
   def render_array(element, schema, object)
-    select_tag(element['key'], options_for_select(element['enum'], object[element['key']]), element_properties(element, schema))
+    select_tag(keyify_property_name(element), options_for_select(element['enum'], object[element['key']]), element_properties(element, schema))
   end
 
   def render_label(element, schema)
-    label_tag(element['key'].underscore, element['key'].titleize, class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
+    label_tag(keyify_property_name(element), element['key'].titleize, class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
   end
 
   def schema_required_fields(schema)
@@ -89,5 +96,9 @@ module UmmHelper
     property['key'] = key
 
     property
+  end
+
+  def keyify_property_name(element)
+    element['key'].split('/').map.with_index { |key, index| index == 0 ? key.underscore : "[#{key.underscore}]" }.join()
   end
 end

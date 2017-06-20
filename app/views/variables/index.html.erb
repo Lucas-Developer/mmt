@@ -1,12 +1,3 @@
-<script type="text/javascript">
-  // Load json-schema for field validation
-  var globalJsonSchema = <%= raw @schema.to_json %>;
-
-  $(document).ready(function() {
-    $("#umm-var-form").validate()
-  })
-</script>
-
 <div class="row row-content">
   <section>
     <h1>Super Simple JSON Schema Form Interpretation</h1>
@@ -26,6 +17,15 @@
 
   </section>
 </div>
+
+<script>
+  // Load json-schema for field validation
+  var globalJsonSchema = <%= raw @schema.to_json %>;
+
+  $(document).ready(function() {
+    $("#umm-var-form").validate()
+  })
+</script>
 
 <!-- Help Modal -->
 <div id="help-modal">
