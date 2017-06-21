@@ -1,6 +1,9 @@
 <div class="row row-content">
   <section>
     <h1>Super Simple JSON Schema Form Interpretation</h1>
+    <p>
+      <pre><%= JSON.pretty_generate(@schema) %></pre>
+    </p>
 
     <%= form_tag 'variable', method: :post, id: 'umm-var-form', class: 'umm-form' do %>
       <h2><%= @schema['title'] %></h2>
