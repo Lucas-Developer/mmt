@@ -5,15 +5,21 @@
       "items": [
         {
           "type": "section",
-          "htmlClass": "col-6",
+          "htmlClass": "col-4",
+          "items": [{"key": "ServiceType/ServiceType"}]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-4",
           "items": [{"key": "ServiceType/Visualizable"}]
         },
         {
           "type": "section",
-          "htmlClass": "col-6",
+          "htmlClass": "col-4",
           "items": [{"key": "ServiceType/Subsettable"}]
         }
-      ]
+      ],
+      "title": "Service Type"
     },
     {
       "type": "section",

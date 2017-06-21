@@ -81,7 +81,7 @@ module UmmHelper
   end
 
   def render_label(element, schema)
-    label_tag(keyify_property_name(element), element['key'].titleize, class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
+    label_tag(keyify_property_name(element), element['key'].split('/').last.titleize, class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
   end
 
   def schema_required_fields(schema)
