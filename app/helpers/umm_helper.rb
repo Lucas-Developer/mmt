@@ -76,12 +76,16 @@ module UmmHelper
     text_field_tag(keyify_property_name(element), object[element['key']], element_properties(element, schema))
   end
 
-  def render_array(element, schema, object)
+  def render_select(element, schema, object)
     select_tag(keyify_property_name(element), options_for_select(element['enum'], object[element['key']]), element_properties(element, schema))
   end
 
+  def render_multiselect(element, schema, object)
+    select_tag(keyify_property_name(element), options_for_select(element['items']['enum'], object[element['key']]), { multiple: true }.merge(element_properties(element, schema)))
+  end
+
   def render_label(element, schema)
-    label_tag(keyify_property_name(element), element['key'].split('/').last.titleize, class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
+    label_tag(keyify_property_name(element), element.fetch('label', element['key'].split('/').last.titleize), class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
   end
 
   def schema_required_fields(schema)
@@ -90,7 +94,7 @@ module UmmHelper
 
   def hydrate_schema_property(schema, key)
     # Retreive the requested key from the schema
-    property = schema['properties'].fetch(key, {})
+    property = key.split('/').reduce(schema['properties']) { |hsh, k| hsh.fetch(k) }
 
     # Set the 'key' attribute within the property has so that we have reference to it
     property['key'] = key

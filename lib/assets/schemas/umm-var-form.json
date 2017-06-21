@@ -6,17 +6,17 @@
         {
           "type": "section",
           "htmlClass": "col-4",
-          "items": [{"key": "ServiceType/ServiceType"}]
+          "items": [{"key": "ServiceType/items/properties/ServiceType", "type": "multiselect"}]
         },
         {
           "type": "section",
           "htmlClass": "col-4",
-          "items": [{"key": "ServiceType/Visualizable"}]
+          "items": [{"key": "ServiceType/items/properties/Visualizable"}]
         },
         {
           "type": "section",
           "htmlClass": "col-4",
-          "items": [{"key": "ServiceType/Subsettable"}]
+          "items": [{"key": "ServiceType/items/properties/Subsettable"}]
         }
       ],
       "title": "Service Type"
@@ -46,7 +46,7 @@
         {
           "type": "section",
           "htmlClass": "col-6",
-          "items": [{"key": "DataType", "type": "array"}]
+          "items": [{"key": "DataType", "type": "select"}]
         },
         {
           "type": "section",
