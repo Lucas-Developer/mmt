@@ -20,7 +20,10 @@ class VariablesController < ApplicationController
     @object = {
       'Name'                 => 'Sollicitudin Vestibulum',
       'DimensionsName'       => 'Lorem Cras Pellentesque Dolor Elit',
-      'FillValueDescription' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.'
+      'FillValueDescription' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.',
+      'ServiceType'          => {
+        'ServiceType' => %w(WMS OPeNDAP)
+      }
     }
   end
 

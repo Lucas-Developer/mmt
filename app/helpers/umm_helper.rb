@@ -70,19 +70,19 @@ module UmmHelper
   end
 
   def render_textarea(element, schema, object)
-    text_area_tag(keyify_property_name(element), object[element['key']], element_properties(element, schema))
+    text_area_tag(keyify_property_name(element), get_element_value(object, element['key']), element_properties(element, schema))
   end
 
   def render_text(element, schema, object)
-    text_field_tag(keyify_property_name(element), object[element['key']], element_properties(element, schema))
+    text_field_tag(keyify_property_name(element), get_element_value(object, element['key']), element_properties(element, schema))
   end
 
   def render_select(element, schema, object)
-    select_tag(keyify_property_name(element), options_for_select(element['enum'], object[element['key']]), element_properties(element, schema))
+    select_tag(keyify_property_name(element), options_for_select(element['enum'], get_element_value(object, element['key'])), element_properties(element, schema))
   end
 
   def render_multiselect(element, schema, object)
-    select_tag(keyify_property_name(element), options_for_select(element['items']['enum'], object[element['key']]), { multiple: true }.merge(element_properties(element, schema)))
+    select_tag(keyify_property_name(element), options_for_select(element['items']['enum'], get_element_value(object, element['key'])), { multiple: true }.merge(element_properties(element, schema)))
   end
 
   def render_label(element, schema)
@@ -93,9 +93,22 @@ module UmmHelper
     schema.fetch('required', [])
   end
 
+  # Get the value for the provided key from the provided object
+  def get_element_value(object, key)
+    # Uses reduce to dig through the provided object to look for and return the
+    # provided key that could be nested
+    element_path_for_object(key).reduce(object) { |a, e| a[e] }
+  end
+
+  # Gets the keys that are relevant to the UMM object as an array from
+  # a provided key e.g. 'Parent/items/properties/Field' => ['Parent', 'Field']
+  def element_path_for_object(key, ignore_keys: %w(items properties))
+    (key.split('/') - ignore_keys)
+  end
+
   def hydrate_schema_property(schema, key)
     # Retreive the requested key from the schema
-    property = key.split('/').reduce(schema['properties']) { |a, e| a.fetch(e) }
+    property = key.split('/').reduce(schema['properties']) { |a, e| a.fetch(e, {}) }
 
     # Set the 'key' attribute within the property has so that we have reference to it
     property['key'] = key
@@ -113,8 +126,8 @@ module UmmHelper
   # We use '/' as a separator in our key names for the purposes of looking them up
   # in the schema when nested. This method translates that into ruby syntax to retrieve
   # a nested key in a hash e.g. 'object/first_key/leaf' => 'object[first_key][leaf]'
-  def keyify_property_name(element)
-    element['key'].split('/').map.with_index { |key, index| index == 0 ? key.underscore : "[#{key.underscore}]" }.join
+  def keyify_property_name(element, ignore_keys: %w(items properties))
+    element_path_for_object(element['key'], ignore_keys: ignore_keys).map.with_index { |key, index| index == 0 ? key.underscore : "[#{key.underscore}]" }.join
   end
 
   # Fetch all the 'keys' in the provided section of the schema
@@ -144,7 +157,7 @@ module UmmHelper
         key_leaf = fetch_key_leaf(field['key'])
 
         # Ignore this field if it's not required valid
-        next unless schema_required_fields(schema).include?(key_leaf) && object[key_leaf].blank?
+        next unless schema_required_fields(schema).include?(key_leaf) && get_element_value(object, field['key']).blank?
 
         # Field is required and has no value
         valid = false
