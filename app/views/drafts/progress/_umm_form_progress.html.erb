@@ -1,0 +1,19 @@
+<div class="status">
+  <%= umm_form_circle(schema, form_section, fetch_all_keys(schema, form_section), object, []).html_safe %>
+</div>
+<div class="meta-info">
+  <%= link_to form_section.fetch('title', 'no_title').titleize, draft_edit_form_path(object, form_section.fetch('title', 'no_title')) %>
+  <div class="progress-indicators">
+
+      <% fetch_all_keys(schema, form_section).each do |field| %>
+
+        <% unless object[fetch_key_leaf(field['key'])].blank? %>
+        <%= complete_circle(fetch_key_leaf(field['key']).titleize, object, fetch_key_leaf(field['key']), fetch_key_leaf(field['key']).underscore, schema_required_fields(schema).include?(field['key'].split('/').last)) %>
+        <% else %>
+        <%= empty_circle(fetch_key_leaf(field['key']).titleize, object, fetch_key_leaf(field['key']), fetch_key_leaf(field['key']).underscore, schema_required_fields(schema).include?(field['key'].split('/').last)) %>
+        <% end %>
+
+      <% end %>
+
+  </div>
+</div>

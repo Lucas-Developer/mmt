@@ -1,9 +1,13 @@
 <div class="row row-content">
   <section>
     <h1>Super Simple JSON Schema Form Interpretation</h1>
-    <p>
+
+    <h2>Schema Debug</h2>
+    <div style="height: 300px; overflow: scroll;">
       <pre><%= JSON.pretty_generate(@schema) %></pre>
-    </p>
+    </div>
+
+    <%= render partial: 'drafts/progress/umm_progress', locals: { form: @form, schema: @schema, object: @object } %>
 
     <%= form_tag 'variable', method: :post, id: 'umm-var-form', class: 'umm-form' do %>
       <h2><%= @schema['title'] %></h2>
