@@ -19,6 +19,7 @@ class VariablesController < ApplicationController
   def set_object
     @object = {
       'Name'                 => 'Sollicitudin Vestibulum',
+      'DataType'             => 'uchar8',
       'DimensionsName'       => 'Lorem Cras Pellentesque Dolor Elit',
       'FillValueDescription' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.',
       'ServiceType'          => {
