@@ -48,7 +48,7 @@ describe 'Updating a Service Entry', reset_provider: true do
       end
 
       before do
-        VCR.use_cassette('echo_soap/service_management_service/service_entries/edit', record: :none) do
+        VCR.use_cassette('echo_soap/service_management_service/service_entries/edit', record: :none, match_requests_on: [:method, :uri, :body]) do
           visit edit_service_entry_path(guid)
         end
       end
@@ -139,7 +139,7 @@ describe 'Updating a Service Entry', reset_provider: true do
               find('.remove_button').click
             end
 
-            VCR.use_cassette('echo_soap/service_management_service/service_entries/update', record: :none) do
+            VCR.use_cassette('echo_soap/service_management_service/service_entries/update', record: :none, match_requests_on: [:method, :uri, :body]) do
               within '#service-entry-form' do
                 click_on 'Submit'
               end
