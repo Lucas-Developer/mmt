@@ -31,7 +31,7 @@
             {
               "type": "section",
               "htmlClass": "col-7",
-              "items": [{"key": "DataType"}]
+              "items": [{"key": "DataType", "type": "select"}]
             }
           ]
         }
