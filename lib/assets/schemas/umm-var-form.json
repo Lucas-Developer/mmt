@@ -2,46 +2,41 @@
   "forms": [
     {
       "type": "section",
-      "htmlClass": "row",
-      "items": [
-        {
-          "type": "section",
-          "htmlClass": "col-7",
-          "items": [{"key": "Name"}]
-        },
-        {
-          "type": "section",
-          "htmlClass": "col-5",
-          "items": [{"key": "Units"}]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "htmlClass": "row",
       "items": [
         {
           "type": "section",
           "htmlClass": "row",
-          "items": [{"key": "LongName"}]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "htmlClass": "row",
-      "items": [
-        {
-          "type": "section",
-          "htmlClass": "col-6",
-          "items": [{"key": "DataType", "type": "select"}]
+          "items": [
+            {
+              "type": "section",
+              "htmlClass": "col-5",
+              "items": [{"key": "Name"}]
+            },
+            {
+              "type": "section",
+              "htmlClass": "col-7",
+              "items": [{"key": "LongName"}]
+            }
+          ]
         },
         {
           "type": "section",
-          "htmlClass": "col-6",
-          "items": [{"key": "Units"}]
+          "htmlClass": "row",
+          "items": [
+            {
+              "type": "section",
+              "htmlClass": "col-5",
+              "items": [{"key": "Units"}]
+            },
+            {
+              "type": "section",
+              "htmlClass": "col-7",
+              "items": [{"key": "DataType"}]
+            }
+          ]
         }
-      ]
+      ],
+      "title": "Variable Information"
     },
     {
       "type": "section",
@@ -87,8 +82,36 @@
       "htmlClass": "row",
       "items": [
         {"key": "FillValue"},
-        {"type": "textarea", "key": "FillValueDescription"}
+        {"key": "FillValueDescription", "type": "textarea"}
       ]
+    },
+    {
+      "type": "section",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "row",
+          "items": [
+            {
+              "type": "section",
+              "htmlClass": "row",
+              "items": [{"key": "CharacteristicsType/properties/StandardName"}]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "htmlClass": "row",
+          "items": [
+            {
+              "type": "section",
+              "htmlClass": "row",
+              "items": [{"key": "CharacteristicsType/properties/Reference", "type": "textarea"}]
+            }
+          ]
+        }
+      ],
+      "title": "Variable Characteristics"
     },
     {
       "type": "section",

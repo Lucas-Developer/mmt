@@ -98,6 +98,8 @@ module UmmHelper
     # Uses reduce to dig through the provided object to look for and return the
     # provided key that could be nested
     element_path_for_object(key).reduce(object) { |a, e| a[e] }
+  rescue
+    nil
   end
 
   # Gets the keys that are relevant to the UMM object as an array from
