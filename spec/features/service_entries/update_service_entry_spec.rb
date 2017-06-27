@@ -24,7 +24,7 @@ describe 'Updating a Service Entry', reset_provider: true do
   context 'when viewing the edit service entry form' do
     context 'when the user does not have the required permissions' do
       before do
-        VCR.use_cassette('echo_soap/service_management_service/service_entries/edit', record: :none) do
+        VCR.use_cassette('echo_soap/service_management_service/service_entries/edit', record: :none, match_requests_on: [:method, :uri, :body]) do
           visit edit_service_entry_path(guid)
         end
       end
