@@ -118,6 +118,15 @@
       "items": [
         {
           "type": "section",
+          "items": [{"type": "multitext", "key": "Tagging"}]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "items": [
+        {
+          "type": "section",
           "htmlClass": "col-4",
           "items": [{"key": "ServiceType/items/properties/ServiceType", "type": "multiselect"}]
         },

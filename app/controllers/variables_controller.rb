@@ -24,7 +24,11 @@ class VariablesController < ApplicationController
       'FillValueDescription' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.',
       'ServiceType'          => {
         'ServiceType' => %w(WMS OPeNDAP)
-      }
+      },
+      'Tagging' => [
+        'Tagging 1',
+        'Tagging 2'
+      ]
     }
   end
 

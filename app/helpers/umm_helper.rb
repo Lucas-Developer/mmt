@@ -85,6 +85,37 @@ module UmmHelper
     select_tag(keyify_property_name(element), options_for_select(element['items']['enum'], get_element_value(object, element['key'])), { multiple: true }.merge(element_properties(element, schema)))
   end
 
+  def render_multitext(element, schema, object)
+    content_tag(:div, class: "multiple multitext #{element['key']}") do
+      Array.wrap(object[element['key']]).each_with_index do |obj, index|
+        concat render_multitext_field(element, schema, obj, index)
+      end
+
+      # actions button
+      concat content_tag(:div, render_add_another_button(element['key']), class: 'actions')
+    end
+  end
+
+  def render_multitext_field(element, schema, obj, index)
+    content_tag(:div, class: 'multiple-item multiple-item-0') do
+      concat text_field_tag("#{keyify_property_name(element)}[#{index.to_s}]", obj, element_properties(element, schema))
+      concat render_remove_link(element['key'])
+    end
+  end
+
+  def render_remove_link(name)
+    content_tag(:a, class: 'remove') do
+      concat content_tag(:i, '', class: 'fa fa-times-circle')
+      concat content_tag(:span, "Remove #{name}", class: 'is-invisible')
+    end
+  end
+
+  def render_add_another_button(name)
+    button_tag(type: 'button', class: 'eui-btn--blue add-another') do
+      content_tag(:i, "Add another #{name}", class: 'fa fa-plus-circle')
+    end
+  end
+
   def render_label(element, schema)
     label_tag(keyify_property_name(element), element.fetch('label', element['key'].split('/').last.titleize), class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
   end

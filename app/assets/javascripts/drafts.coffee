@@ -146,7 +146,7 @@ $(document).ready ->
 
     newDiv
 
-  $('.metadata-form .multiple').on 'click', '.remove', ->
+  $('.metadata-form .multiple, .umm-form .multiple').on 'click', '.remove', ->
     multipleItem = $(this).closest('.multiple-item')
     $(multipleItem).remove()
 
