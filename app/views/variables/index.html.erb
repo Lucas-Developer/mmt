@@ -32,6 +32,9 @@
   $(document).ready(function() {
     $("#umm-var-form").validate()
   })
+
+  //Setup Science Keywords
+  setupScienceKeywords(<%= raw @science_keywords.to_json %>);
 </script>
 
 <!-- Help Modal -->

@@ -1,5 +1,5 @@
 $(document).ready ->
-  $('.umm-form').on 'click', '.add-another', (e) ->
+  $('.umm-form').on 'click', '.add-new', (e) ->
     multiple = $(this).closest('.multitext')
     multipleItem = multiple.children('.multiple-item:last')
 

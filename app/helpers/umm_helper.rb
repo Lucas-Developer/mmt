@@ -1,14 +1,14 @@
 require 'deep_find'
 # :nodoc:
 module UmmHelper
-  def element_classes(property)
+  def element_classes(property, initial_classes = nil)
     # Default classes
-    classes = ['full-width']
+    classes = initial_classes || 'full-width'
 
     # Add textcounter to the UI if the element has a maxLength
-    classes.append('textcounter') if property.key?('maxLength')
+    classes << ' textcounter' if property.key?('maxLength')
 
-    classes.join(' ')
+    classes
   end
 
   def validation_properties(element, schema)
@@ -29,8 +29,8 @@ module UmmHelper
     validation_properties
   end
 
-  def element_properties(element, schema)
-    { class: element_classes(element) }.merge(validation_properties(element, schema))
+  def element_properties(element, schema, initial_classes = nil)
+    { class: element_classes(element, initial_classes) }.merge(validation_properties(element, schema))
   end
 
   def render_form_element(element, schema, object)
@@ -86,20 +86,16 @@ module UmmHelper
   end
 
   def render_multitext(element, schema, object)
-    content_tag(:div, class: "multiple multitext #{element['key']}") do
+    content_tag(:div, class: "simple-multiple multiple multitext #{element['key']}") do
       Array.wrap(object[element['key']]).each_with_index do |obj, index|
-        concat render_multitext_field(element, schema, obj, index)
+        concat(content_tag(:div, class: 'multiple-item') do
+          concat text_field_tag("#{keyify_property_name(element)}[#{index}]", obj, element_properties(element, schema, 'half-width'))
+
+          concat render_remove_link(element['key'])
+        end)
       end
 
-      # actions button
-      concat content_tag(:div, render_add_another_button(element['key']), class: 'actions')
-    end
-  end
-
-  def render_multitext_field(element, schema, obj, index)
-    content_tag(:div, class: 'multiple-item multiple-item-0') do
-      concat text_field_tag("#{keyify_property_name(element)}[#{index.to_s}]", obj, element_properties(element, schema))
-      concat render_remove_link(element['key'])
+      concat content_tag(:div, render_button("Add another #{element['key']}", 'eui-btn--blue add-new'), class: 'actions')
     end
   end
 
@@ -110,14 +106,58 @@ module UmmHelper
     end
   end
 
-  def render_add_another_button(name)
-    button_tag(type: 'button', class: 'eui-btn--blue add-another') do
-      content_tag(:i, "Add another #{name}", class: 'fa fa-plus-circle')
+  def render_button(title, classes, disabled = false)
+    button_tag(type: 'button', class: classes, disabled: disabled) do
+      content_tag(:i, title, class: 'fa fa-plus-circle')
     end
   end
 
   def render_label(element, schema)
     label_tag(keyify_property_name(element), element.fetch('label', element['key'].split('/').last.titleize), class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
+  end
+
+  def render_keyword(element, schema, object)
+    content_tag(:section) do
+      concat render_keyword_list(element, schema, object[element['key']])
+
+      concat render_keyword_picker
+
+      concat content_tag(:div, render_button('Add Keyword', 'eui-btn--blue add-science-keyword', true), class: 'actions')
+    end
+  end
+
+  def render_keyword_list(element, schema, object)
+    content_tag(:div, class: 'selected-science-keywords science-keywords') do
+      concat(content_tag(:ul) do
+        Array.wrap(object).each_with_index do |keyword, index|
+          concat(content_tag(:li) do
+            concat keyword_string(keyword)
+
+            concat render_remove_link(keyword_string(keyword))
+
+            concat hidden_field_tag("#{keyify_property_name(element)}[#{index}]", keyword_string(keyword))
+          end)
+        end
+      end)
+
+      concat hidden_field_tag("#{keyify_property_name(element)}[]", '')
+    end
+  end
+
+  def render_keyword_picker
+    content_tag(:div, class: 'eui-nested-item-picker') do
+      concat(content_tag(:ul, class: 'eui-item-path') do
+        content_tag(:li, link_to('Science Keyword', 'javascript:void(0);'), class: 'list-title')
+      end)
+
+      concat(content_tag(:div, class: 'eui-item-list-pane') do
+        content_tag(:ul) do
+          content_tag(:li) do
+            text_field_tag('science-keyword-search', nil, name: nil, class: 'typeahead', placeholder: 'Search for keywords...')
+          end
+        end
+      end)
+    end
   end
 
   def schema_required_fields(schema)

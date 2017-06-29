@@ -127,6 +127,15 @@
       "items": [
         {
           "type": "section",
+          "items": [{"type": "keyword", "key": "ScienceKeywords"}]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "items": [
+        {
+          "type": "section",
           "htmlClass": "col-4",
           "items": [{"key": "ServiceType/items/properties/ServiceType", "type": "multiselect"}]
         },

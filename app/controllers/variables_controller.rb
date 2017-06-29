@@ -4,6 +4,7 @@ class VariablesController < ApplicationController
     set_schema
     set_form
     set_object
+    set_science_keywords
   end
 
   private
@@ -28,8 +29,19 @@ class VariablesController < ApplicationController
       'Tagging' => [
         'Tagging 1',
         'Tagging 2'
+      ],
+      'ScienceKeywords' => [
+        {
+          'Category' => 'EARTH SCIENCE',
+          'Topic' => 'ATMOSPHERE',
+          'Term' => 'AEROSOLS',
+        }
       ]
     }
+  end
+
+  def set_science_keywords
+    @science_keywords = cmr_client.get_controlled_keywords('science_keywords')
   end
 
   def parse_schema(filename)
