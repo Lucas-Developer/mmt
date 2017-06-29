@@ -160,6 +160,21 @@ module UmmHelper
     end
   end
 
+  def render_boolean(element, schema, object)
+    content_tag(:section) do
+      concat(content_tag(:p, class: 'radio-group') do
+        concat radio_button_tag(keyify_property_name(element), 'TRUE', get_element_value(object, element['key']) == 'TRUE')
+
+        concat label_tag "#{keyify_property_name(element)}_TRUE", 'True'
+      end)
+      concat(content_tag(:p, class: 'radio-group') do
+        concat radio_button_tag(keyify_property_name(element), 'FALSE', get_element_value(object, element['key']) == 'FALSE')
+
+        concat label_tag "#{keyify_property_name(element)}_FALSE", 'False'
+      end)
+    end
+  end
+
   def schema_required_fields(schema)
     schema.fetch('required', [])
   end

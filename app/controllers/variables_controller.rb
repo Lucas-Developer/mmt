@@ -24,7 +24,8 @@ class VariablesController < ApplicationController
       'DimensionsName'       => 'Lorem Cras Pellentesque Dolor Elit',
       'FillValueDescription' => 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.',
       'ServiceType'          => {
-        'ServiceType' => %w(WMS OPeNDAP)
+        'ServiceType' => %w(WMS OPeNDAP),
+        'Visualizable' => 'TRUE'
       },
       'Tagging' => [
         'Tagging 1',

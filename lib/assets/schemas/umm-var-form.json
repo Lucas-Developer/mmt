@@ -142,12 +142,12 @@
         {
           "type": "section",
           "htmlClass": "col-4",
-          "items": [{"key": "ServiceType/items/properties/Visualizable"}]
+          "items": [{"key": "ServiceType/items/properties/Visualizable", "type": "boolean"}]
         },
         {
           "type": "section",
           "htmlClass": "col-4",
-          "items": [{"key": "ServiceType/items/properties/Subsettable"}]
+          "items": [{"key": "ServiceType/items/properties/Subsettable", "type": "boolean"}]
         }
       ],
       "title": "Service Type"
