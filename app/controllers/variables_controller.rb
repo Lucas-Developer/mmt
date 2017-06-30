@@ -34,8 +34,8 @@ class VariablesController < ApplicationController
       'ScienceKeywords' => [
         {
           'Category' => 'EARTH SCIENCE',
-          'Topic' => 'ATMOSPHERE',
-          'Term' => 'AEROSOLS',
+          'Topic'    => 'ATMOSPHERE',
+          'Term'     => 'AEROSOLS'
         }
       ]
     }

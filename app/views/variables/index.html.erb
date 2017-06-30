@@ -14,9 +14,7 @@
       <p><%= @schema['description'] %></p>
 
       <% @form['forms'].each do |form_section| %>
-        <fieldset>
-          <%= render_form_element(form_section, @schema, @object) %>
-        </fieldset>
+        <%= render_form_element(form_section, @schema, @object) %>
       <% end %>
 
       <%= submit_tag 'Submit', class: 'eui-btn--blue' %>

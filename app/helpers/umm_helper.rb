@@ -36,6 +36,8 @@ module UmmHelper
   def render_form_element(element, schema, object)
     if element['type'] == 'section'
       render_section(element, schema, object)
+    elsif element['type'] == 'fieldset'
+      render_fieldset(element, schema, object)
     else
       send('render_markup', element.fetch('type', 'text'), hydrate_schema_property(schema, element['key']), schema, object)
     end
@@ -54,8 +56,23 @@ module UmmHelper
     end
   end
 
+  def render_fieldset(element, schema, object)
+    content_tag(:fieldset, class: element['htmlClass']) do
+      # Display a title for the section if its provided
+      concat content_tag(:h4, element['title'], class: 'space-bot') if element.key?('title')
+
+      # Display a description of the section if its provided
+      concat content_tag(:p, element['description'], class: 'form-description space-bot') if element.key?('description')
+
+      # Continue rendering fields that appear in this section
+      element.fetch('items', []).each do |child_element|
+        concat render_form_element(child_element, schema, object)
+      end
+    end
+  end
+
   def render_section(element, schema, object)
-    content_tag(:section, class: element['htmlClass']) do
+    content_tag(:div, class: element['htmlClass']) do
       # Display a title for the section if its provided
       concat content_tag(:h4, element['title'], class: 'space-bot') if element.key?('title')
 
