@@ -14,7 +14,7 @@ module UmmHelper
   def validation_properties(element, schema)
     # jQuery Validate can use html elements for validation so we'll set those elements
     # here instead of having to define these attributes on a one off basis in javascript
-    validation_properties = element.select { |key| %w(minLength maxLength pattern).include?(key) }
+    validation_properties = element.select { |key| %w[minLength maxLength pattern].include?(key) }
 
     # JSON Schema provides the required fields in a separate array so we have to look this up
     if schema_required_fields(schema).include?(element['key'])
@@ -26,6 +26,14 @@ module UmmHelper
       }
     end
 
+    if element['type'] == 'number'
+      validation_properties['number'] = true
+
+      validation_properties['data'] = {
+        'msg-number': "#{fetch_key_leaf(element['key']).titleize} must be a number."
+      }
+    end
+
     validation_properties
   end
 
@@ -33,17 +41,19 @@ module UmmHelper
     { class: element_classes(element, initial_classes) }.merge(validation_properties(element, schema))
   end
 
-  def render_form_element(element, schema, object)
+  def render_form_element(element, schema, object, index = nil)
     if element['type'] == 'section'
-      render_section(element, schema, object)
+      render_section(element, schema, object, index)
     elsif element['type'] == 'fieldset'
-      render_fieldset(element, schema, object)
+      render_fieldset(element, schema, object, index)
+    elsif element['type'] == 'multifield'
+      render_multifield(element, schema, object, index)
     else
-      send('render_markup', element.fetch('type', 'text'), hydrate_schema_property(schema, element['key']), schema, object)
+      send('render_markup', element.fetch('type', 'text'), hydrate_schema_property(schema, element['key']), schema, object, index)
     end
   end
 
-  def render_markup(type, element, schema, object)
+  def render_markup(type, element, schema, object, index = nil)
     capture do
       # Label for the form field
       concat render_label(element, schema)
@@ -52,11 +62,11 @@ module UmmHelper
       concat mmt_help_icon(help: "properties/#{element['key']}", title: element['key'])
 
       # Render the field
-      concat send("render_#{type}", element, schema, object)
+      concat send("render_#{type}", element, schema, object, index)
     end
   end
 
-  def render_fieldset(element, schema, object)
+  def render_fieldset(element, schema, object, index = nil)
     content_tag(:fieldset, class: element['htmlClass']) do
       # Display a title for the section if its provided
       concat content_tag(:h4, element['title'], class: 'space-bot') if element.key?('title')
@@ -66,12 +76,12 @@ module UmmHelper
 
       # Continue rendering fields that appear in this section
       element.fetch('items', []).each do |child_element|
-        concat render_form_element(child_element, schema, object)
+        concat render_form_element(child_element, schema, object, index)
       end
     end
   end
 
-  def render_section(element, schema, object)
+  def render_section(element, schema, object, index = nil)
     content_tag(:div, class: element['htmlClass']) do
       # Display a title for the section if its provided
       concat content_tag(:h4, element['title'], class: 'space-bot') if element.key?('title')
@@ -81,28 +91,33 @@ module UmmHelper
 
       # Continue rendering fields that appear in this section
       element.fetch('items', []).each do |child_element|
-        concat render_form_element(child_element, schema, object)
+        concat render_form_element(child_element, schema, object, index)
       end
     end
   end
 
-  def render_textarea(element, schema, object)
+  def render_textarea(element, schema, object, index = nil)
     text_area_tag(keyify_property_name(element), get_element_value(object, element['key']), element_properties(element, schema))
   end
 
-  def render_text(element, schema, object)
+  def render_text(element, schema, object, index = nil)
+    puts "text index: #{index}"
+    text_field_tag(keyify_property_name(element, index), get_element_value(object, element['key']), element_properties(element, schema))
+  end
+
+  def render_number(element, schema, object, index = nil)
     text_field_tag(keyify_property_name(element), get_element_value(object, element['key']), element_properties(element, schema))
   end
 
-  def render_select(element, schema, object)
+  def render_select(element, schema, object, index = nil)
     select_tag(keyify_property_name(element), options_for_select(element['enum'], get_element_value(object, element['key'])), element_properties(element, schema))
   end
 
-  def render_multiselect(element, schema, object)
+  def render_multiselect(element, schema, object, index = nil)
     select_tag(keyify_property_name(element), options_for_select(element['items']['enum'], get_element_value(object, element['key'])), { multiple: true }.merge(element_properties(element, schema)))
   end
 
-  def render_multitext(element, schema, object)
+  def render_multitext(element, schema, object, index = nil)
     content_tag(:div, class: "simple-multiple multiple multitext #{element['key']}") do
       Array.wrap(object[element['key']]).each_with_index do |obj, index|
         concat(content_tag(:div, class: 'multiple-item') do
@@ -110,6 +125,26 @@ module UmmHelper
 
           concat render_remove_link(element['key'])
         end)
+      end
+
+      concat content_tag(:div, render_button("Add another #{element['key']}", 'eui-btn--blue add-new'), class: 'actions')
+    end
+  end
+
+  def render_multifield(element, schema, object, index = nil)
+    # byebug
+    content_tag(:section, class: 'multiple') do
+      concat content_tag(:p, element)
+      # byebug
+      Array.wrap(object[element['key']]).each_with_index do |obj, i|
+        concat content_tag(:p, obj)
+        # byebug
+        element['items'].each do |property|
+          puts property
+          puts obj
+          puts "key #{fetch_key_leaf(property['items'][0]['key'])}"
+          concat render_form_element(property, schema, object, i)
+        end
       end
 
       concat content_tag(:div, render_button("Add another #{element['key']}", 'eui-btn--blue add-new'), class: 'actions')
@@ -133,7 +168,7 @@ module UmmHelper
     label_tag(keyify_property_name(element), element.fetch('label', element['key'].split('/').last.titleize), class: ('eui-required-o' if schema_required_fields(schema).include?(element['key'])))
   end
 
-  def render_keyword(element, schema, object)
+  def render_keyword(element, schema, object, index = nil)
     content_tag(:section) do
       concat render_keyword_list(element, schema, object[element['key']])
 
@@ -143,7 +178,7 @@ module UmmHelper
     end
   end
 
-  def render_keyword_list(element, schema, object)
+  def render_keyword_list(element, schema, object, index = nil)
     content_tag(:div, class: 'selected-science-keywords science-keywords') do
       concat(content_tag(:ul) do
         Array.wrap(object).each_with_index do |keyword, index|
@@ -177,7 +212,7 @@ module UmmHelper
     end
   end
 
-  def render_boolean(element, schema, object)
+  def render_boolean(element, schema, object, index = nil)
     content_tag(:section) do
       concat(content_tag(:p, class: 'radio-group') do
         concat radio_button_tag(keyify_property_name(element), 'TRUE', get_element_value(object, element['key']) == 'TRUE')
@@ -207,7 +242,7 @@ module UmmHelper
 
   # Gets the keys that are relevant to the UMM object as an array from
   # a provided key e.g. 'Parent/items/properties/Field' => ['Parent', 'Field']
-  def element_path_for_object(key, ignore_keys: %w(items properties))
+  def element_path_for_object(key, ignore_keys: %w[items properties])
     (key.split('/') - ignore_keys)
   end
 
@@ -217,6 +252,7 @@ module UmmHelper
 
     # Set the 'key' attribute within the property has so that we have reference to it
     property['key'] = key
+    property['includeIndex'] = true
 
     property
   end
@@ -231,8 +267,10 @@ module UmmHelper
   # We use '/' as a separator in our key names for the purposes of looking them up
   # in the schema when nested. This method translates that into ruby syntax to retrieve
   # a nested key in a hash e.g. 'object/first_key/leaf' => 'object[first_key][leaf]'
-  def keyify_property_name(element, ignore_keys: %w(items properties))
-    element_path_for_object(element['key'], ignore_keys: ignore_keys).map.with_index { |key, index| index == 0 ? key.underscore : "[#{key.underscore}]" }.join
+  def keyify_property_name(element, index = nil, ignore_keys: %w[items properties])
+    puts "keyify index: #{index}"
+    puts "element: #{element}"
+    element_path_for_object([element['key'], index].compact.join('/'), ignore_keys: ignore_keys).map.with_index { |key, i| i.zero? ? key.underscore : "[#{key.underscore}]" }.join
   end
 
   # Fetch all the 'keys' in the provided section of the schema
@@ -278,7 +316,7 @@ module UmmHelper
   # Generate the circle icon for a form section
   def form_section_circle(section_title, valid)
     # Default classes
-    classes = %w(eui-icon icon-green)
+    classes = %w[eui-icon icon-green]
 
     # Add the class that will define the final appearance of the circle
     classes << if valid

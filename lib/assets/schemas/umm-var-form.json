@@ -175,7 +175,7 @@
       "title": "Variable Characteristics"
     },
     {
-      "type": "section",
+      "type": "fieldset",
       "items": [
         {
           "type": "section",
@@ -213,6 +213,34 @@
           "type": "section",
           "htmlClass": "col-4",
           "items": [{"key": "ServiceType/items/properties/Subsettable", "type": "boolean"}]
+        }
+      ]
+    },
+    {
+      "type": "fieldset",
+      "title": "Set Type",
+      "items": [
+        {
+          "type": "multifield",
+          "key": "SetType",
+          "items": [
+            {
+              "type": "section",
+              "items": [{"type": "text", "key": "SetType/items/properties/SetName", "includeIndex": true}]
+            },
+            {
+              "type": "section",
+              "items": [{"type": "text", "key": "SetType/items/properties/SetType", "includeIndex": true}]
+            },
+            {
+              "type": "section",
+              "items": [{"type": "number", "key": "SetType/items/properties/SetSize", "includeIndex": true}]
+            },
+            {
+              "type": "section",
+              "items": [{"type": "number", "key": "SetType/items/properties/SetIndex", "includeIndex": true}]
+            }
+          ]
         }
       ]
     }

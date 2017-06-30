@@ -37,6 +37,16 @@ class VariablesController < ApplicationController
           'Topic'    => 'ATMOSPHERE',
           'Term'     => 'AEROSOLS'
         }
+      ],
+      'SetType' => [
+        {
+          'SetName' => 'name',
+          'SetType' => 'type'
+        },
+        {
+          'SetName' => 'name2',
+          'SetType' => 'type2'
+        }
       ]
     }
   end
