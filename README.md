@@ -42,6 +42,15 @@ To start the project, just type the default rails command:
 
 And if you need to stop the server from running, hit `Ctrl + C` and the server will shutdown.
 
+#### Setting the environment variable needed by the local CMR
+Before running a local copy of the CMR. You will need to set an environment variable. Add this line into your `.bash_profile`
+
+    export CMR_URS_PASSWORD=mock-urs-password
+
+After adding the line and saving the file, don't forget to source the file
+
+    source ~/.bash_profile
+
 ### Running a local copy of CMR
 In order to use a local copy of the CMR you will need to download the latest file, set up the necessary permissions and groups, and ingest some sample data.
 
@@ -54,17 +63,7 @@ In order to use a local copy of the CMR you will need to download the latest fil
 
 4. Place the `cmr-dev-system-0.1.0-SNAPSHOT-standalone.jar` file in the `cmr` folder from Step #3.
 
-5. Set the environment variables needed by the local CMR
-    * Add this line to your `.bash_profile`:
-```
-export CMR_URS_PASSWORD=mock-urs-password
-```
-
-    * After adding the line and saving the file, don't forget to source the file.
-
-```
-source ~/.bash_profile
-```
+5. Make sure you've set up the necessary environment variable as described in the previous section
 
 To start the local CMR and load data*:
 
