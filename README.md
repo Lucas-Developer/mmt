@@ -44,18 +44,9 @@ And if you need to stop the server from running, hit `Ctrl + C` and the server w
 
 
 ### Running a local copy of CMR
-In order to use a local copy of the CMR you will need to set an environment variable, download the latest file, and run a task to set required permissions and ingest some data.
+In order to use a local copy of the CMR you will need to download the latest file, set an environment variable, and run a rake task to set required permissions and ingest some data.
 
-##### Setting the environment variable needed by the local CMR
-Before running a local copy of the CMR, you will need to set a required environment variable. Add this line into your `.bash_profile`:
-
-    export CMR_URS_PASSWORD=mock-urs-password
-
-After adding the line and saving the file, don't forget to source the file
-
-    source ~/.bash_profile
-
-##### Downloading the CMR uberjar
+##### 1. Downloading the CMR file
 1. Go to this page https://ci.earthdata.nasa.gov/browse/CMR-CSB/latestSuccessful/artifact/
 
 2. Download the `cmr-dev-system-uberjar.jar` file.
@@ -65,7 +56,16 @@ After adding the line and saving the file, don't forget to source the file
 
 4. Place the `cmr-dev-system-0.1.0-SNAPSHOT-standalone.jar` file in the `cmr` folder from Step #3.
 
-##### Starting the local CMR
+##### 2. Setting the environment variable needed by the local CMR
+Before running a local copy of the CMR, you will need to set a required environment variable. Add this line into your `.bash_profile`:
+
+    export CMR_URS_PASSWORD=mock-urs-password
+
+After adding the line and saving the file, don't forget to source the file
+
+    source ~/.bash_profile
+
+##### 3. Running the CMR rake tasks
 To start the local CMR and load permissions and data*:
 
     rake cmr:start_and_load
