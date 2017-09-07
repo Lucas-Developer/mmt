@@ -18,7 +18,7 @@ describe 'Revision list', js: true do
 
     context 'when clicking on the revision link' do
       before do
-        wait_for_cmr
+        # wait_for_cmr
         click_on 'Revisions'
       end
 

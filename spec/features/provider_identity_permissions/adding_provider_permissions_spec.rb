@@ -10,7 +10,7 @@ describe 'Saving Provider Identity Permissions', reset_provider: true do
       provider_id: 'MMT_2'
     )
 
-    wait_for_cmr
+    # wait_for_cmr
 
     @system_group = create_group(
       name: 'Test System Group for Provider Permissions',
@@ -19,7 +19,7 @@ describe 'Saving Provider Identity Permissions', reset_provider: true do
       admin: true
     )
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   after :all do
@@ -53,7 +53,7 @@ describe 'Saving Provider Identity Permissions', reset_provider: true do
         click_on 'Submit'
       end
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'displays a success message and no error message on the index page' do
@@ -80,7 +80,7 @@ describe 'Saving Provider Identity Permissions', reset_provider: true do
         click_on 'Submit'
       end
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'displays a success message and no error message on the index page' do

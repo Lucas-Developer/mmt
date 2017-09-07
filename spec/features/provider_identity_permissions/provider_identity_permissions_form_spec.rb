@@ -12,7 +12,7 @@ describe 'Provider Identity Permissions pages and form', reset_provider: true do
       description: @group_description
     )
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   context 'when viewing the provider identities permisisons index page as an administrator' do

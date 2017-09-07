@@ -17,7 +17,7 @@ module Helpers
 
         raise Array.wrap(group_response.body['errors']).join(' /// ') if group_response.body.key?('errors')
 
-        wait_for_cmr
+        # wait_for_cmr
 
         return group_response.body
       end
@@ -27,7 +27,7 @@ module Helpers
       ActiveSupport::Notifications.instrument 'mmt.performance', activity: 'Helpers::GroupHelper#create_group' do
         response = cmr_client.delete_group(concept_id, admin ? 'access_token_admin' : 'access_token')
 
-        wait_for_cmr
+        # wait_for_cmr
 
         return response.success?
       end
@@ -53,7 +53,7 @@ module Helpers
       ActiveSupport::Notifications.instrument 'mmt.performance', activity: 'Helpers::GroupHelper#add_group_permissions' do
         response = cmr_client.add_group_permissions(permission_params, 'access_token')
 
-        wait_for_cmr
+        # wait_for_cmr
 
         return response.body
       end
@@ -74,7 +74,7 @@ module Helpers
 
         response = cmr_client.add_group_permissions(permission_params, 'access_token')
 
-        wait_for_cmr
+        # wait_for_cmr
 
         return response.body
       end
@@ -105,7 +105,7 @@ module Helpers
       ActiveSupport::Notifications.instrument 'mmt.performance', activity: 'Helpers::GroupHelper#remove_group_permissions' do
         acl_response = cmr_client.delete_permission(concept_id, 'access_token')
 
-        wait_for_cmr
+        # wait_for_cmr
 
         return acl_response.success?
       end

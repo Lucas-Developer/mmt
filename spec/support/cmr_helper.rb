@@ -24,5 +24,13 @@ module Helpers
     def cmr_success_response(response_body)
       Cmr::Response.new(Faraday::Response.new(status: 200, body: JSON.parse(response_body)))
     end
+
+    def indexed_cmr_transaction
+      # Run all the operations
+      # yield
+
+      # Ensure the queue is empty
+      wait_for_cmr
+    end
   end
 end

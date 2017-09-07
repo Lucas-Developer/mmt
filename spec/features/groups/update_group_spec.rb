@@ -72,7 +72,7 @@ describe 'Updating groups', reset_provider: true, js: true do
           end
         end
 
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays the group members' do

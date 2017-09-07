@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Service Form', reset_provider: true, js: true do
+describe 'Service Form', js: true do
   before do
     login
   end

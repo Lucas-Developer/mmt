@@ -49,7 +49,7 @@ describe 'Collection Permissions', reset_provider: true, js: true do
 
       click_on 'Submit'
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'successfully creates the collection permission and redirects to the show page and displaying the collection permission information' do
@@ -114,7 +114,7 @@ describe 'Collection Permissions', reset_provider: true, js: true do
       ingest_response, concept_response_3 = publish_collection_draft
       @entry_id_3 = "#{concept_response_3.body['ShortName']}_#{concept_response_3.body['Version']}"
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     context 'when visiting the edit page' do
@@ -155,7 +155,7 @@ describe 'Collection Permissions', reset_provider: true, js: true do
 
           click_on 'Submit'
 
-          wait_for_cmr
+          # wait_for_cmr
         end
 
         it 'successfully updates the collection permission and redirects to the show page and displaying the collection permission information' do
@@ -203,7 +203,7 @@ describe 'Collection Permissions', reset_provider: true, js: true do
 
             click_on 'Submit'
 
-            wait_for_cmr
+            # wait_for_cmr
           end
 
           it 'successfully updates the collection permission and redirects to the show page and displaying the collection permission information' do
@@ -231,7 +231,7 @@ describe 'Collection Permissions', reset_provider: true, js: true do
       click_on 'Delete'
       click_on 'Yes'
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'successfully deletes the collection permission and redirects to the index page and does not display the deleted collection permission' do

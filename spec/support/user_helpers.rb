@@ -156,7 +156,7 @@ module Helpers
           cmr_client.add_group_permissions(permission_params, 'access_token')
         end
 
-        wait_for_cmr
+        # wait_for_cmr
       end
     end
 
@@ -166,7 +166,7 @@ module Helpers
 
         cmr_client.delete_permission(permission['concept_id'], 'access_token') if permission
 
-        wait_for_cmr
+        # wait_for_cmr
       end
     end
 

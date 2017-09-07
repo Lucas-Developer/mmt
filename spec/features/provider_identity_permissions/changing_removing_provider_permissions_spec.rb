@@ -9,7 +9,7 @@ describe 'Changing or Removing Provider Identity Permissions', reset_provider: t
       description: 'Group for updating provider object permissions'
     )
 
-    wait_for_cmr
+    # wait_for_cmr
 
     provider_perm_1 = {
       'group_permissions' => [{
@@ -47,7 +47,7 @@ describe 'Changing or Removing Provider Identity Permissions', reset_provider: t
     permissions = [provider_perm_1, provider_perm_2, provider_perm_3]
     permissions.each { |perm| cmr_client.add_group_permissions(perm, 'access_token') }
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   context 'when visiting the provider object permissions page for the group' do
@@ -79,7 +79,7 @@ describe 'Changing or Removing Provider Identity Permissions', reset_provider: t
           click_on 'Submit'
         end
 
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays a success message and no error message on the index page' do

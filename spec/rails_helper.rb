@@ -26,7 +26,7 @@ require 'rails/tasks'
 # Specs flagged with `js: true` will use Capybara's JS driver. Set
 # that JS driver to :poltergeist
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, timeout: 1.minute)
+  Capybara::Poltergeist::Driver.new(app, timeout: 30.seconds)
 end
 Capybara.javascript_driver = :poltergeist
 
@@ -79,6 +79,17 @@ RSpec.configure do |config|
       VCR.use_cassette('echo_soap/provider_names') do
         spec.run
       end
+    end
+  end
+
+  config.around(:each) do |spec|
+    begin
+      spec.run
+    rescue
+      wait_for_cmr
+
+      # Retry
+      spec.run
     end
   end
 

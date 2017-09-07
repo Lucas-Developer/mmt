@@ -36,7 +36,7 @@ describe 'Groups list page', reset_provider: true do
             end
 
             before do
-              wait_for_cmr
+              # wait_for_cmr
 
               visit groups_path
             end

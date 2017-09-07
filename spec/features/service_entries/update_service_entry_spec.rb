@@ -7,7 +7,7 @@ describe 'Updating a Service Entry', reset_provider: true do
     # create a group
     @service_entry_group = create_group(name: 'Service Entry Group', members: ['testuser'])
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   after :all do

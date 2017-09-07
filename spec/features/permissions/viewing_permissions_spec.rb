@@ -65,7 +65,7 @@ describe 'Viewing Collection Permissions', reset_provider: true do
 
         @collection_permission_1 = cmr_client.add_group_permissions(collection_permission_1, 'access_token').body
 
-        wait_for_cmr
+        # wait_for_cmr
 
         visit permission_path(@collection_permission_1['concept_id'])
       end
@@ -154,7 +154,7 @@ describe 'Viewing Collection Permissions', reset_provider: true do
         @ingest_response2, @concept_response_2 = publish_collection_draft
         @ingest_response3, @concept_response_3 = publish_collection_draft
 
-        wait_for_cmr
+        # wait_for_cmr
 
         @collection_permission_2_name = 'Testing Collection Permission Show Permutations'
 
@@ -197,7 +197,7 @@ describe 'Viewing Collection Permissions', reset_provider: true do
 
         @collection_permission_2 = cmr_client.add_group_permissions(collection_permission_2, 'access_token').body
 
-        wait_for_cmr
+        # wait_for_cmr
 
         visit permission_path(@collection_permission_2['concept_id'])
       end
@@ -292,7 +292,7 @@ describe 'Viewing Collection Permissions', reset_provider: true do
 
         @collection_permission_3 = cmr_client.add_group_permissions(collection_permission_3, 'access_token').body
 
-        wait_for_cmr
+        # wait_for_cmr
 
         visit permission_path(@collection_permission_3['concept_id'])
       end

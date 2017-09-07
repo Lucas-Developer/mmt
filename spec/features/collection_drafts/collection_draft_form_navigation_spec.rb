@@ -4,7 +4,7 @@ require 'rails_helper'
 
 include DraftsHelper
 
-describe 'Collection Draft form navigation', js: true do
+describe 'Collection Draft form navigation' do
   before do
     login
     @collection_draft = create(:full_collection_draft, user: User.where(urs_uid: 'testuser').first)
@@ -40,7 +40,7 @@ describe 'Collection Draft form navigation', js: true do
   CollectionDraft.forms.each do |form|
     next_form = titleize_form_name(CollectionDraft.get_next_form(form, 'Next'))
 
-    context "when choosing #{next_form} from the form selection drop down" do
+    context "when choosing #{next_form} from the form selection drop down", js: true do
       before do
         if next_form == 'Metadata Information'
           click_on 'Data Identification'

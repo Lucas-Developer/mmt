@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Set Form', reset_provider: true, js: true do
+describe 'Set Form', js: true do
   before do
     login
   end
@@ -161,6 +161,39 @@ describe 'Set Form', reset_provider: true, js: true do
 
         within '.nav-bottom' do
           expect(find(:css, 'select[name=jump_to_section]').value).to eq('services')
+        end
+      end
+    end
+
+    context 'When selecting the next form from the navigation dropdown', js: true do
+      before do
+        within '.nav-top' do
+          select 'Variable Information', from: 'Save & Jump To:'
+        end
+
+        click_on 'Yes'
+      end
+
+      it 'saves the draft and loads the previous form' do
+        within '.eui-banner--success' do
+          expect(page).to have_content('Variable Draft Updated Successfully!')
+        end
+
+        within '.eui-breadcrumbs' do
+          expect(page).to have_content('Variable Drafts')
+          expect(page).to have_content('Variable Information')
+        end
+
+        within '.umm-form' do
+          expect(page).to have_content('Variable Information')
+        end
+
+        within '.nav-top' do
+          expect(find(:css, 'select[name=jump_to_section]').value).to eq('variable_information')
+        end
+
+        within '.nav-bottom' do
+          expect(find(:css, 'select[name=jump_to_section]').value).to eq('variable_information')
         end
       end
     end

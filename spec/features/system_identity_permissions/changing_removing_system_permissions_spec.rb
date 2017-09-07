@@ -11,7 +11,7 @@ describe 'Changing or Removing System Identity Permissions' do
       admin: true
     )
 
-    wait_for_cmr
+    # wait_for_cmr
 
     system_perm_1 = {
       'group_permissions' => [{
@@ -46,7 +46,7 @@ describe 'Changing or Removing System Identity Permissions' do
     permissions = [system_perm_1, system_perm_2, system_perm_3]
     permissions.each { |perm| cmr_client.add_group_permissions(perm, 'access_token_admin') }
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   after :all do
@@ -87,7 +87,7 @@ describe 'Changing or Removing System Identity Permissions' do
           click_on 'Submit'
         end
 
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays a success message and no error message on the index page' do

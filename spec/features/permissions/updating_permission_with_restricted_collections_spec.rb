@@ -22,7 +22,7 @@ describe 'Updating Collection Permissions when collections are not accessible by
       provider_id: 'NSIDC_ECS'
     )
 
-    wait_for_cmr
+    # wait_for_cmr
 
     @collection_permission_some_restricted_name = "Testing Collection Permission with SOME restricted collections #{rand(1000)}"
 
@@ -48,7 +48,7 @@ describe 'Updating Collection Permissions when collections are not accessible by
 
     @collection_permission_some_restricted = cmr_client.add_group_permissions(collection_permission_some_restricted, 'access_token_admin').body
 
-    wait_for_cmr
+    # wait_for_cmr
 
     @collection_permission_all_restricted_name = "Testing Collection Permission with ALL restricted collections #{rand(1000)}"
 
@@ -73,13 +73,13 @@ describe 'Updating Collection Permissions when collections are not accessible by
 
     @collection_permission_all_restricted = cmr_client.add_group_permissions(collection_permission_all_restricted, 'access_token_admin').body
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   after :all do
     delete_group(concept_id: @group['concept_id'])
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   context 'when logging in as a user that has restricted access to the provider collections' do

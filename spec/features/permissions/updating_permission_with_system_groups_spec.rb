@@ -6,7 +6,7 @@ describe 'Updating Collection Permissions with System Groups', reset_provider: t
     @group_name = random_group_name
     @group = create_group(name: @group_name, admin: false)
 
-    wait_for_cmr
+    # wait_for_cmr
 
     @collection_permission_name = 'Testing Collection Permissions with System Groups'
     original_collection_permission = {
@@ -30,7 +30,7 @@ describe 'Updating Collection Permissions with System Groups', reset_provider: t
 
     @collection_permission = cmr_client.add_group_permissions(original_collection_permission, 'access_token').body
 
-    wait_for_cmr
+    # wait_for_cmr
   end
 
   context 'when logging in as a regular user and viewing the collection permission' do

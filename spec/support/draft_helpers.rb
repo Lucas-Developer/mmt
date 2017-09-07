@@ -47,7 +47,7 @@ module Helpers
         raise Array.wrap(ingest_response.body['errors']).join(' /// ') unless ingest_response.success?
 
         # Synchronous way of waiting for CMR to complete the ingest work
-        wait_for_cmr
+        # wait_for_cmr
 
         # Retrieve the concept from CMR so that we can create a new draft, if test requires it
         concept_id = ingest_response.body['concept-id']
@@ -93,7 +93,7 @@ module Helpers
         ingest_response = cmr_client.ingest_variable(draft.draft.to_json, draft.provider_id, draft.native_id, 'token')
 
         # Synchronous way of waiting for CMR to complete the ingest work
-        wait_for_cmr
+        # wait_for_cmr
 
         raise Array.wrap(ingest_response.body['errors']).join(' /// ') unless ingest_response.success?
 

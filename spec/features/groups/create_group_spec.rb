@@ -63,7 +63,7 @@ describe 'Groups', reset_provider: true do
             end
           end
 
-          wait_for_cmr
+          # wait_for_cmr
         end
 
         it 'saves the group with members' do
@@ -91,7 +91,7 @@ describe 'Groups', reset_provider: true do
             click_on 'Submit'
           end
 
-          wait_for_cmr
+          # wait_for_cmr
         end
 
         it 'saves the group without members' do

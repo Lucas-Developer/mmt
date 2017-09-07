@@ -5,7 +5,7 @@
 <!-- Javascripts -->
 <%= javascript_include_tag 'application' -%>
 
-<% if Rails.configuration.respond_to?(:analytics_id) -%>
+<% if Rails.configuration.respond_to?(:analytics_id) && !Rails.env.test? -%>
   <!-- Google Analytics -->
   <%= render 'shared/google_analytics' %>
 <% end -%>

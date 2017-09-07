@@ -28,7 +28,7 @@ describe 'Reverting to previous collections', js: true do
         click_on 'Yes'
 
         wait_for_ajax
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays all the correct revision information' do
@@ -54,7 +54,7 @@ describe 'Reverting to previous collections', js: true do
         click_on 'Yes'
 
         wait_for_ajax
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays an error message' do
@@ -73,7 +73,7 @@ describe 'Reverting to previous collections', js: true do
       click_on 'Yes'
 
       wait_for_ajax
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'displays the correct phrasing for reverting records' do
@@ -86,7 +86,7 @@ describe 'Reverting to previous collections', js: true do
         click_on 'Yes'
 
         wait_for_ajax
-        wait_for_cmr
+        # wait_for_cmr
       end
 
       it 'displays all the correct revision information' do
@@ -125,7 +125,7 @@ describe 'Reverting to previous collections', js: true do
         find('.not-current-provider-link').click
 
         wait_for_ajax
-        wait_for_cmr
+        # wait_for_cmr
 
         expect(page).to have_content('Revision Created Successfully!')
       end

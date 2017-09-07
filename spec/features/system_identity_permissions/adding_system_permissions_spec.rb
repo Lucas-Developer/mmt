@@ -39,7 +39,7 @@ describe 'Saving System Identity Permissions' do
         click_on 'Submit'
       end
 
-      wait_for_cmr
+      # wait_for_cmr
     end
 
     it 'displays a success message and no error message on the index page' do
