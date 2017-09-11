@@ -93,6 +93,29 @@ RSpec.configure do |config|
     end
   end
 
+  # config.around(:each) do |example|
+  #   retry_count = 3
+  #   retry_count.times do |i|
+  #     example.run
+  #     real_example = example.example
+
+  #     if real_example.exception.nil?
+  #       break # Stop the retry loop and proceed to the next spec
+  #     end
+
+  #     # If we got to this point, then a retry-able exception has been thrown by the spec
+  #     e_line = real_example.instance_variable_get '@example_block'
+  #     puts "Error (#{real_example.exception.class} - #{real_example.exception}) occurred while running rspec example (#{e_line}"
+
+  #     if i < retry_count
+  #       wait_for_cmr
+
+  #       example.instance_variable_set('@exception', nil)
+  #       puts "Re-running rspec example (#{e_line}. Retry count #{i+1} of #{retry_count}"
+  #     end
+  #   end
+  # end
+
   # Clear the test provider, MMT_2, before running tests
   # only if the test is tagged with reset_provider: true
   config.before(:all) do
